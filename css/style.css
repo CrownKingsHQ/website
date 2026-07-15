@@ -2008,3 +2008,83 @@ sup {
     transform: none;
   }
 }
+/* ==================================================
+   FINAL IMAGE-LOADING POLISH
+================================================== */
+
+img:not(.brand-icon):not(.footer-icon) {
+  opacity: 0;
+  transition:
+    opacity 500ms ease,
+    transform var(--transition-slow);
+}
+
+img:not(.brand-icon):not(.footer-icon).is-loaded {
+  opacity: 1;
+}
+
+img:not(.brand-icon):not(.footer-icon).has-error {
+  min-height: 220px;
+  opacity: 1;
+  background:
+    linear-gradient(
+      135deg,
+      var(--ivory-100),
+      var(--ivory-300)
+    );
+}
+
+/* Prevent layout movement while larger images load. */
+
+.hero-image,
+.editorial-image,
+.founder-photo,
+.featured-space img,
+.gallery-item img {
+  background: var(--ivory-200);
+}
+
+/* Make all major editorial images fill their frames cleanly. */
+
+.molding-frame .hero-image,
+.molding-frame .editorial-image,
+.molding-frame .founder-photo {
+  height: 100%;
+}
+
+/* Improve the educational image crop. */
+
+img[
+  src="three-ways-to-enhance-the-look-of-plain-crown-molding-1-music-room-ceiling-details-of-trim-used.jpeg"
+] {
+  object-position: center center;
+}
+
+/* Improve Logan's working-photo composition. */
+
+.founder-photo {
+  object-position: center top;
+}
+
+/* Keep the homepage hero focused on the ceiling and architectural details. */
+
+.hero-image[
+  src="music-room-after-2048x1536.jpeg"
+] {
+  object-position: center 35%;
+}
+
+/* Make telephone links easier to tap on mobile. */
+
+@media (max-width: 640px) {
+  .contact-details a {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+  }
+
+  .floating-estimate {
+    right: 0.75rem;
+    bottom: 0.75rem;
+  }
+}
