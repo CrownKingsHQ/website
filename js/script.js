@@ -1,52 +1,22 @@
-const navToggle = document.querySelector(".nav-toggle");
-const siteNav = document.querySelector(".site-nav");
+const toggle = document.querySelector(".nav-toggle");
+const nav = document.querySelector(".site-nav");
 
-if (navToggle && siteNav) {
-  navToggle.addEventListener("click", () => {
-    const isOpen = siteNav.classList.toggle("is-open");
+if (toggle && nav) {
+  toggle.addEventListener("click", () => {
+    const open = nav.classList.toggle("is-open");
 
-    navToggle.setAttribute("aria-expanded", String(isOpen));
-    navToggle.setAttribute(
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.setAttribute(
       "aria-label",
-      isOpen ? "Close navigation" : "Open navigation"
+      open ? "Close menu" : "Open menu"
     );
   });
 
-  siteNav.querySelectorAll("a").forEach((link) => {
+  nav.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", () => {
-      siteNav.classList.remove("is-open");
-      navToggle.setAttribute("aria-expanded", "false");
-      navToggle.setAttribute("aria-label", "Open navigation");
+      nav.classList.remove("is-open");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Open menu");
     });
-  });
-}
-
-const revealItems = document.querySelectorAll(".reveal");
-
-const reducedMotion = window.matchMedia(
-  "(prefers-reduced-motion: reduce)"
-).matches;
-
-if ("IntersectionObserver" in window && !reducedMotion) {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    {
-      threshold: 0.14
-    }
-  );
-
-  revealItems.forEach((item) => {
-    observer.observe(item);
-  });
-} else {
-  revealItems.forEach((item) => {
-    item.classList.add("is-visible");
   });
 }
