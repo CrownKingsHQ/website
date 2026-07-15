@@ -6,24 +6,19 @@
 
   <title>Page Not Found | CrownKings</title>
 
-  <meta
-    name="description"
-    content="The requested CrownKings page could not be found."
+  <meta name="description" content="Page not found.">
+  <meta name="robots" content="noindex">
+
+  <link rel="icon" href="assets/logo/icon-dark.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600&display=swap"
+    rel="stylesheet"
   >
 
-  <link rel="canonical" href="https://crownkings.com/404.html">
-
-  <meta property="og:title" content="Page Not Found | CrownKings">
-  <meta
-    property="og:description"
-    content="The requested CrownKings page could not be found."
-  >
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://crownkings.com/404.html">
-
-  <meta name="twitter:card" content="summary_large_image">
-
-  <link rel="icon" href="assets/logo-crownkings.png">
   <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -31,13 +26,17 @@
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
-    <div class="container nav-wrap">
-      <a class="brand" href="index.html" aria-label="CrownKings home">
-        <img src="assets/logo-crownkings.png" alt="CrownKings logo">
+    <div class="container nav-shell">
+      <a class="brand" href="index.html" aria-label="CrownKings homepage">
+        <img
+          src="assets/logo/icon-dark.png"
+          alt=""
+          class="brand-icon"
+        >
 
-        <span class="brand-copy">
-          <span class="brand-name">CROWNKINGS™</span>
-          <span class="brand-tag">Crown Molding Experts</span>
+        <span class="brand-text">
+          <strong>CROWNKINGS<sup>™</sup></strong>
+          <small>Crown Molding Experts</small>
         </span>
       </a>
 
@@ -46,7 +45,7 @@
         type="button"
         aria-expanded="false"
         aria-controls="site-nav"
-        aria-label="Open navigation"
+        aria-label="Open menu"
       >
         <span></span>
         <span></span>
@@ -58,28 +57,33 @@
         <a href="services.html">Services</a>
         <a href="gallery.html">Gallery</a>
         <a href="about.html">About</a>
-        <a class="button" href="contact.html">Request Estimate</a>
+
+        <a class="button button--small" href="contact.html">
+          Request Estimate
+        </a>
       </nav>
     </div>
   </header>
 
   <main id="main">
-    <section class="page-hero error-page">
+    <section class="page-hero page-hero--center">
       <div class="container">
-        <p class="eyebrow">404</p>
+        <span class="kicker">404</span>
 
-        <h1 class="display">
+        <h1>
           This page is not finished.
         </h1>
 
-        <p class="lead">
-          Return to the CrownKings homepage or request an estimate.
+        <p>
+          Return home or request an estimate.
         </p>
 
-        <div class="button-row">
-          <a class="button" href="index.html">Return Home</a>
+        <div class="hero-actions">
+          <a class="button" href="index.html">
+            Return Home
+          </a>
 
-          <a class="button button--ghost" href="contact.html">
+          <a class="button button--outline" href="contact.html">
             Request Estimate
           </a>
         </div>
@@ -87,49 +91,59 @@
     </section>
   </main>
 
+  <section class="final-cta">
+    <div class="container final-cta__inner">
+      <div>
+        <span class="kicker">Start with a conversation</span>
+
+        <h2>
+          Architectural detail, finished with care.
+        </h2>
+      </div>
+
+      <a class="button button--light" href="contact.html">
+        Request an Estimate
+      </a>
+    </div>
+  </section>
+
   <footer class="site-footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div>
-          <strong>CROWNKINGS™</strong>
+    <div class="container footer-grid">
+      <div>
+        <div class="footer-brand">
+          <img
+            src="assets/logo/icon-dark.png"
+            alt=""
+            class="footer-icon"
+          >
 
-          <p class="footer-brand">
-            Charleston-based crown molding installation and finishing backed
-            by 25+ years of experience and a commitment to respectful,
-            transparent, reliable service.
-          </p>
+          <strong>CROWNKINGS<sup>™</sup></strong>
         </div>
 
-        <div>
-          <strong>Explore</strong>
-
-          <div class="footer-links">
-            <a href="services.html">Services</a>
-            <a href="gallery.html">Gallery</a>
-            <a href="about.html">About</a>
-            <a href="contact.html">Request Estimate</a>
-          </div>
-        </div>
-
-        <div>
-          <strong>Contact</strong>
-
-          <div class="footer-links">
-            <!-- REPLACE: Verified business information required -->
-            <span>[PHONE NUMBER]</span>
-
-            <!-- REPLACE: Verified business information required -->
-            <span>[BUSINESS EMAIL]</span>
-
-            <span>Charleston, SC</span>
-          </div>
-        </div>
+        <p>
+          Charleston crown molding installation and finishing backed by
+          25+ years of experience.
+        </p>
       </div>
 
-      <div class="footer-bottom">
-        <span>© 2026 CrownKings™. All rights reserved.</span>
-        <span>Respectful. Transparent. Reliable.</span>
+      <div>
+        <strong>Explore</strong>
+        <a href="services.html">Services</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="about.html">About</a>
       </div>
+
+      <div>
+        <strong>Contact</strong>
+        <a href="tel:+18439911548">843-991-1548</a>
+        <a href="mailto:hello@crownkings.com">hello@crownkings.com</a>
+        <span>Charleston, SC</span>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <span>© 2026 CrownKings™</span>
+      <span>Respectful. Transparent. Reliable.</span>
     </div>
   </footer>
 
