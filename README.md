@@ -1,11 +1,22 @@
-# CrownKings Website MVP
+# CrownKings Website V2
 
-A static HTML, CSS, and JavaScript website designed for GitHub Pages.
+Upload every file and folder to the root of the existing GitHub repository.
 
-## Project structure
+Replace duplicate files when prompted.
+
+## Folder structure
 
 ```text
-crownkings-site/
+CrownKingsHQ/
+├── assets/
+│   ├── logo/
+│   │   └── icon-dark.png
+│   ├── images/
+│   └── icons/
+├── css/
+│   └── style.css
+├── js/
+│   └── script.js
 ├── index.html
 ├── services.html
 ├── gallery.html
@@ -14,10 +25,4 @@ crownkings-site/
 ├── 404.html
 ├── robots.txt
 ├── sitemap.xml
-├── README.md
-├── assets/
-│   └── logo-crownkings.png
-├── css/
-│   └── style.css
-└── js/
-    └── script.js
+└── README.md
