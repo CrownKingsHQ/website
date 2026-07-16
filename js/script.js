@@ -1,9 +1,19 @@
 /* =========================================================
    CROWNKINGS™ V6
    FINAL INTERACTION SYSTEM
+   Safe image fade-in version
 ========================================================= */
 
 "use strict";
+
+/*
+  Confirms that JavaScript is running.
+
+  The CSS uses this class to enable enhanced image fade effects.
+  If JavaScript ever fails, images remain visible by default.
+*/
+
+document.documentElement.classList.add("js");
 
 /* =========================================================
    GLOBAL REFERENCES
@@ -68,13 +78,18 @@ function toggleNavigation() {
 }
 
 if (navToggle && siteNav) {
-  navToggle.addEventListener("click", toggleNavigation);
+  navToggle.addEventListener(
+    "click",
+    toggleNavigation
+  );
 
-  siteNav.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => {
-      closeNavigation();
+  siteNav
+    .querySelectorAll("a")
+    .forEach((link) => {
+      link.addEventListener("click", () => {
+        closeNavigation();
+      });
     });
-  });
 }
 
 document.addEventListener("click", (event) => {
@@ -126,7 +141,10 @@ function requestHeaderUpdate() {
   }
 
   headerFrameRequested = true;
-  window.requestAnimationFrame(updateHeaderState);
+
+  window.requestAnimationFrame(
+    updateHeaderState
+  );
 }
 
 updateHeaderState();
@@ -134,7 +152,9 @@ updateHeaderState();
 window.addEventListener(
   "scroll",
   requestHeaderUpdate,
-  { passive: true }
+  {
+    passive: true
+  }
 );
 
 /* =========================================================
@@ -143,7 +163,8 @@ window.addEventListener(
 
 function normalizePageName(pathname) {
   const pageName =
-    pathname.split("/").pop() || "index.html";
+    pathname.split("/").pop() ||
+    "index.html";
 
   return pageName === ""
     ? "index.html"
@@ -155,9 +176,12 @@ const currentPage = normalizePageName(
 );
 
 document
-  .querySelectorAll(".site-nav a:not(.button)")
+  .querySelectorAll(
+    ".site-nav a:not(.button)"
+  )
   .forEach((link) => {
-    const href = link.getAttribute("href");
+    const href =
+      link.getAttribute("href");
 
     if (!href) {
       return;
@@ -173,7 +197,8 @@ document
     );
 
     if (
-      linkURL.origin === window.location.origin &&
+      linkURL.origin ===
+        window.location.origin &&
       linkPage === currentPage
     ) {
       link.setAttribute(
@@ -181,9 +206,13 @@ document
         "page"
       );
     } else if (
-      link.getAttribute("aria-current") === "page"
+      link.getAttribute(
+        "aria-current"
+      ) === "page"
     ) {
-      link.removeAttribute("aria-current");
+      link.removeAttribute(
+        "aria-current"
+      );
     }
   });
 
@@ -191,13 +220,16 @@ document
    REVEAL ANIMATIONS
 ========================================================= */
 
-const revealElements = document.querySelectorAll(
-  ".reveal, .reveal-left, .reveal-right"
-);
+const revealElements =
+  document.querySelectorAll(
+    ".reveal, .reveal-left, .reveal-right"
+  );
 
 function revealAllElements() {
   revealElements.forEach((element) => {
-    element.classList.add("is-visible");
+    element.classList.add(
+      "is-visible"
+    );
   });
 }
 
@@ -205,22 +237,29 @@ if (
   "IntersectionObserver" in window &&
   !prefersReducedMotion()
 ) {
-  const revealObserver = new IntersectionObserver(
-    (entries, observer) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) {
-          return;
-        }
+  const revealObserver =
+    new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            return;
+          }
 
-        entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target);
-      });
-    },
-    {
-      threshold: 0.12,
-      rootMargin: "0px 0px -50px 0px"
-    }
-  );
+          entry.target.classList.add(
+            "is-visible"
+          );
+
+          observer.unobserve(
+            entry.target
+          );
+        });
+      },
+      {
+        threshold: 0.12,
+        rootMargin:
+          "0px 0px -50px 0px"
+      }
+    );
 
   revealElements.forEach((element) => {
     revealObserver.observe(element);
@@ -234,11 +273,15 @@ if (
 ========================================================= */
 
 const signatureLines =
-  document.querySelectorAll(".signature-line");
+  document.querySelectorAll(
+    ".signature-line"
+  );
 
 function showAllSignatureLines() {
   signatureLines.forEach((line) => {
-    line.classList.add("is-visible");
+    line.classList.add(
+      "is-visible"
+    );
   });
 }
 
@@ -258,7 +301,9 @@ if (
             "is-visible"
           );
 
-          observer.unobserve(entry.target);
+          observer.unobserve(
+            entry.target
+          );
         });
       },
       {
@@ -280,85 +325,131 @@ if (
 document
   .querySelectorAll('a[href^="#"]')
   .forEach((anchor) => {
-    anchor.addEventListener("click", (event) => {
-      const targetSelector =
-        anchor.getAttribute("href");
+    anchor.addEventListener(
+      "click",
+      (event) => {
+        const targetSelector =
+          anchor.getAttribute("href");
 
-      if (
-        !targetSelector ||
-        targetSelector === "#"
-      ) {
-        return;
-      }
+        if (
+          !targetSelector ||
+          targetSelector === "#"
+        ) {
+          return;
+        }
 
-      let targetElement;
+        let targetElement;
 
-      try {
-        targetElement =
-          document.querySelector(
-            targetSelector
+        try {
+          targetElement =
+            document.querySelector(
+              targetSelector
+            );
+        } catch (error) {
+          return;
+        }
+
+        if (!targetElement) {
+          return;
+        }
+
+        event.preventDefault();
+
+        closeNavigation();
+
+        targetElement.scrollIntoView({
+          behavior:
+            prefersReducedMotion()
+              ? "auto"
+              : "smooth",
+          block: "start"
+        });
+
+        if (
+          !targetElement.hasAttribute(
+            "tabindex"
+          )
+        ) {
+          targetElement.setAttribute(
+            "tabindex",
+            "-1"
           );
-      } catch (error) {
-        return;
-      }
+        }
 
-      if (!targetElement) {
-        return;
-      }
-
-      event.preventDefault();
-
-      closeNavigation();
-
-      targetElement.scrollIntoView({
-        behavior: prefersReducedMotion()
-          ? "auto"
-          : "smooth",
-        block: "start"
-      });
-
-      if (
-        !targetElement.hasAttribute(
-          "tabindex"
-        )
-      ) {
-        targetElement.setAttribute(
-          "tabindex",
-          "-1"
+        window.setTimeout(
+          () => {
+            targetElement.focus({
+              preventScroll: true
+            });
+          },
+          prefersReducedMotion()
+            ? 0
+            : 450
         );
       }
-
-      window.setTimeout(() => {
-        targetElement.focus({
-          preventScroll: true
-        });
-      }, prefersReducedMotion() ? 0 : 450);
-    });
+    );
   });
 
 /* =========================================================
-   IMAGE LOADING POLISH
+   SAFE IMAGE LOADING AND FADE-IN
 ========================================================= */
 
-const siteImages = document.querySelectorAll(
-  "img:not(.brand-icon):not(.footer-icon)"
-);
+/*
+  Images are visible by default in CSS.
+
+  When JavaScript is active:
+  1. The .js class enables the enhanced hidden state.
+  2. Each image receives .is-loaded when it is ready.
+  3. The image fades and rises gently into view.
+  4. Broken images receive .has-error and remain visible
+     with a neutral background.
+
+  This prevents images from remaining permanently invisible.
+*/
+
+const siteImages =
+  document.querySelectorAll(
+    "img:not(.brand-icon):not(.footer-icon)"
+  );
 
 function markImageLoaded(image) {
-  image.classList.remove("has-error");
-  image.classList.add("is-loaded");
+  image.classList.remove(
+    "has-error"
+  );
+
+  /*
+    Using requestAnimationFrame ensures the browser
+    registers the initial state before revealing the image.
+  */
+
+  window.requestAnimationFrame(() => {
+    image.classList.add(
+      "is-loaded"
+    );
+  });
 }
 
 function markImageError(image) {
-  image.classList.remove("is-loaded");
-  image.classList.add("has-error");
+  image.classList.remove(
+    "is-loaded"
+  );
+
+  image.classList.add(
+    "has-error"
+  );
 
   console.warn(
-    `CrownKings image could not load: ${image.currentSrc || image.src}`
+    "CrownKings image could not load:",
+    image.currentSrc || image.src
   );
 }
 
-siteImages.forEach((image) => {
+function prepareImage(image) {
+  /*
+    If the browser has already loaded the image,
+    reveal it immediately.
+  */
+
   if (
     image.complete &&
     image.naturalWidth > 0
@@ -366,6 +457,11 @@ siteImages.forEach((image) => {
     markImageLoaded(image);
     return;
   }
+
+  /*
+    If the image has finished attempting to load
+    but has no natural width, treat it as an error.
+  */
 
   if (
     image.complete &&
@@ -375,29 +471,87 @@ siteImages.forEach((image) => {
     return;
   }
 
+  /*
+    Otherwise, wait for the normal load or error event.
+  */
+
   image.addEventListener(
     "load",
-    () => markImageLoaded(image),
-    { once: true }
+    () => {
+      markImageLoaded(image);
+    },
+    {
+      once: true
+    }
   );
 
   image.addEventListener(
     "error",
-    () => markImageError(image),
-    { once: true }
+    () => {
+      markImageError(image);
+    },
+    {
+      once: true
+    }
   );
+
+  /*
+    Safety fallback:
+    after several seconds, reveal any image that loaded
+    successfully but whose load event was missed.
+  */
+
+  window.setTimeout(() => {
+    if (
+      image.naturalWidth > 0 &&
+      !image.classList.contains(
+        "is-loaded"
+      )
+    ) {
+      markImageLoaded(image);
+    }
+  }, 4000);
+}
+
+siteImages.forEach((image) => {
+  prepareImage(image);
 });
+
+/*
+  Final production safeguard.
+
+  If an unusual browser prevents the image-loading logic
+  from completing, reveal all successfully loaded images.
+*/
+
+window.addEventListener(
+  "load",
+  () => {
+    siteImages.forEach((image) => {
+      if (image.naturalWidth > 0) {
+        markImageLoaded(image);
+      } else if (
+        image.complete &&
+        image.naturalWidth === 0
+      ) {
+        markImageError(image);
+      }
+    });
+  },
+  {
+    once: true
+  }
+);
 
 /* =========================================================
    GALLERY LIGHTBOX
 ========================================================= */
 
-const galleryItems =
-  Array.from(
-    document.querySelectorAll(
-      ".gallery-item"
-    )
-  );
+const galleryItems = Array.from(
+  document.querySelectorAll(
+    ".gallery-item"
+  )
+);
 
 let lightbox = null;
 let lightboxImage = null;
@@ -409,23 +563,30 @@ let currentGalleryIndex = 0;
 let lastFocusedElement = null;
 
 function getGalleryItemData(item) {
-  const image = item.querySelector("img");
-  const title = item.querySelector(
-    ".gallery-item__caption strong"
-  );
-  const description = item.querySelector(
-    ".gallery-item__caption span"
-  );
+  const image =
+    item.querySelector("img");
+
+  const title =
+    item.querySelector(
+      ".gallery-item__caption strong"
+    );
+
+  const description =
+    item.querySelector(
+      ".gallery-item__caption span"
+    );
 
   return {
     src:
       image?.currentSrc ||
       image?.src ||
       "",
+
     alt:
       image?.alt ||
       title?.textContent?.trim() ||
       "CrownKings finished space",
+
     caption: [
       title?.textContent?.trim(),
       description?.textContent?.trim()
@@ -443,8 +604,11 @@ function createLightbox() {
     return;
   }
 
-  lightbox = document.createElement("div");
+  lightbox =
+    document.createElement("div");
+
   lightbox.className = "lightbox";
+
   lightbox.setAttribute(
     "aria-hidden",
     "true"
@@ -494,7 +658,9 @@ function createLightbox() {
     </div>
   `;
 
-  document.body.appendChild(lightbox);
+  document.body.appendChild(
+    lightbox
+  );
 
   lightboxImage =
     lightbox.querySelector(
@@ -562,7 +728,9 @@ function updateLightbox(index) {
     galleryItems.length;
 
   const item =
-    galleryItems[currentGalleryIndex];
+    galleryItems[
+      currentGalleryIndex
+    ];
 
   const data =
     getGalleryItemData(item);
@@ -571,6 +739,15 @@ function updateLightbox(index) {
   lightboxImage.alt = data.alt;
   lightboxCaption.textContent =
     data.caption;
+
+  /*
+    The lightbox image is dynamically created,
+    so reveal it without relying on the initial image list.
+  */
+
+  lightboxImage.classList.add(
+    "is-loaded"
+  );
 
   const hasMultipleImages =
     galleryItems.length > 1;
@@ -594,13 +771,18 @@ function openLightbox(index) {
 
   updateLightbox(index);
 
-  lightbox.classList.add("is-open");
+  lightbox.classList.add(
+    "is-open"
+  );
+
   lightbox.setAttribute(
     "aria-hidden",
     "false"
   );
 
-  body.classList.add("lightbox-open");
+  body.classList.add(
+    "lightbox-open"
+  );
 
   window.requestAnimationFrame(() => {
     lightboxClose.focus();
@@ -617,13 +799,18 @@ function closeLightbox() {
     return;
   }
 
-  lightbox.classList.remove("is-open");
+  lightbox.classList.remove(
+    "is-open"
+  );
+
   lightbox.setAttribute(
     "aria-hidden",
     "true"
   );
 
-  body.classList.remove("lightbox-open");
+  body.classList.remove(
+    "lightbox-open"
+  );
 
   if (
     lastFocusedElement &&
@@ -636,7 +823,8 @@ function closeLightbox() {
 
 function moveLightbox(direction) {
   updateLightbox(
-    currentGalleryIndex + direction
+    currentGalleryIndex +
+      direction
   );
 }
 
@@ -691,46 +879,61 @@ function trapLightboxFocus(event) {
   }
 }
 
-galleryItems.forEach((item, index) => {
-  item.setAttribute("tabindex", "0");
-  item.setAttribute("role", "button");
+galleryItems.forEach(
+  (item, index) => {
+    item.setAttribute(
+      "tabindex",
+      "0"
+    );
 
-  const itemTitle =
-    item.querySelector(
-      ".gallery-item__caption strong"
-    )?.textContent?.trim();
+    item.setAttribute(
+      "role",
+      "button"
+    );
 
-  item.setAttribute(
-    "aria-label",
-    itemTitle
-      ? `Open ${itemTitle} image`
-      : "Open finished space image"
-  );
+    const itemTitle =
+      item
+        .querySelector(
+          ".gallery-item__caption strong"
+        )
+        ?.textContent?.trim();
 
-  item.addEventListener("click", (event) => {
-    const clickedLink =
-      event.target.closest("a");
+    item.setAttribute(
+      "aria-label",
+      itemTitle
+        ? `Open ${itemTitle} image`
+        : "Open finished space image"
+    );
 
-    if (clickedLink) {
-      return;
-    }
+    item.addEventListener(
+      "click",
+      (event) => {
+        const clickedLink =
+          event.target.closest("a");
 
-    openLightbox(index);
-  });
+        if (clickedLink) {
+          return;
+        }
 
-  item.addEventListener(
-    "keydown",
-    (event) => {
-      if (
-        event.key === "Enter" ||
-        event.key === " "
-      ) {
-        event.preventDefault();
         openLightbox(index);
       }
-    }
-  );
-});
+    );
+
+    item.addEventListener(
+      "keydown",
+      (event) => {
+        if (
+          event.key === "Enter" ||
+          event.key === " "
+        ) {
+          event.preventDefault();
+
+          openLightbox(index);
+        }
+      }
+    );
+  }
+);
 
 /* =========================================================
    BEFORE / AFTER SLIDERS
@@ -787,36 +990,38 @@ function updateBeforeAfterSlider(
   );
 }
 
-beforeAfterSliders.forEach((slider) => {
-  const range =
-    slider.querySelector(
-      ".before-after__range, .before-after__input, input[type='range']"
+beforeAfterSliders.forEach(
+  (slider) => {
+    const range =
+      slider.querySelector(
+        ".before-after__range, .before-after__input, input[type='range']"
+      );
+
+    if (!range) {
+      return;
+    }
+
+    range.min = "0";
+    range.max = "100";
+    range.value =
+      range.value || "50";
+
+    updateBeforeAfterSlider(
+      slider,
+      Number(range.value)
     );
 
-  if (!range) {
-    return;
+    range.addEventListener(
+      "input",
+      () => {
+        updateBeforeAfterSlider(
+          slider,
+          Number(range.value)
+        );
+      }
+    );
   }
-
-  range.min = "0";
-  range.max = "100";
-  range.value =
-    range.value || "50";
-
-  updateBeforeAfterSlider(
-    slider,
-    Number(range.value)
-  );
-
-  range.addEventListener(
-    "input",
-    () => {
-      updateBeforeAfterSlider(
-        slider,
-        Number(range.value)
-      );
-    }
-  );
-});
+);
 
 /* =========================================================
    TALLY EMBED SUPPORT
@@ -824,7 +1029,8 @@ beforeAfterSliders.forEach((slider) => {
 
 function initializeTallyEmbeds() {
   if (
-    typeof window.Tally !== "undefined" &&
+    typeof window.Tally !==
+      "undefined" &&
     typeof window.Tally.loadEmbeds ===
       "function"
   ) {
@@ -833,14 +1039,17 @@ function initializeTallyEmbeds() {
 }
 
 if (
-  document.readyState === "complete"
+  document.readyState ===
+  "complete"
 ) {
   initializeTallyEmbeds();
 } else {
   window.addEventListener(
     "load",
     initializeTallyEmbeds,
-    { once: true }
+    {
+      once: true
+    }
   );
 }
 
@@ -849,10 +1058,13 @@ if (
 ========================================================= */
 
 document
-  .querySelectorAll('a[target="_blank"]')
+  .querySelectorAll(
+    'a[target="_blank"]'
+  )
   .forEach((link) => {
     const currentRel =
-      link.getAttribute("rel") || "";
+      link.getAttribute("rel") ||
+      "";
 
     const relValues = new Set(
       currentRel
@@ -865,7 +1077,9 @@ document
 
     link.setAttribute(
       "rel",
-      Array.from(relValues).join(" ")
+      Array.from(
+        relValues
+      ).join(" ")
     );
   });
 
@@ -905,11 +1119,15 @@ document.addEventListener(
         "is-open"
       )
     ) {
-      if (event.key === "ArrowLeft") {
+      if (
+        event.key === "ArrowLeft"
+      ) {
         moveLightbox(-1);
       }
 
-      if (event.key === "ArrowRight") {
+      if (
+        event.key === "ArrowRight"
+      ) {
         moveLightbox(1);
       }
 
@@ -929,11 +1147,18 @@ function handleReducedMotionChange() {
 
   revealAllElements();
   showAllSignatureLines();
+
+  siteImages.forEach((image) => {
+    if (image.naturalWidth > 0) {
+      markImageLoaded(image);
+    }
+  });
 }
 
 if (
   typeof reducedMotionQuery
-    .addEventListener === "function"
+    .addEventListener ===
+  "function"
 ) {
   reducedMotionQuery.addEventListener(
     "change",
@@ -941,7 +1166,8 @@ if (
   );
 } else if (
   typeof reducedMotionQuery
-    .addListener === "function"
+    .addListener ===
+  "function"
 ) {
   reducedMotionQuery.addListener(
     handleReducedMotionChange
