@@ -3283,3 +3283,114 @@ img:not(.brand-icon):not(.footer-icon)
     width: 100%;
   }
 }
+/* =========================================================
+   CROWNKINGS V6 — SAFE IMAGE FADE OVERRIDE
+   Keep this section at the very bottom of style.css
+========================================================= */
+
+/*
+  Images are visible by default.
+
+  This ensures that photographs still display if JavaScript
+  is delayed, blocked, or encounters an unexpected error.
+*/
+
+img:not(.brand-icon):not(.footer-icon) {
+  opacity: 1;
+  transform: none;
+
+  transition:
+    opacity 650ms ease,
+    transform 850ms var(--ease-luxury);
+}
+
+/*
+  Once JavaScript is confirmed to be running, images begin
+  in the enhanced hidden position.
+*/
+
+.js img:not(.brand-icon):not(.footer-icon) {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+/*
+  The JavaScript adds .is-loaded after each image is ready.
+  This creates the subtle CrownKings fade-and-rise effect.
+*/
+
+.js img:not(.brand-icon):not(.footer-icon).is-loaded {
+  opacity: 1;
+  transform: none;
+}
+
+/*
+  Broken images remain visible as a neutral architectural
+  fallback rather than leaving an empty invisible space.
+*/
+
+.js img:not(.brand-icon):not(.footer-icon).has-error {
+  min-height: 220px;
+
+  opacity: 1;
+  transform: none;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--ivory-100),
+      var(--ivory-300)
+    );
+}
+
+/*
+  Preserve the neutral loading background behind the
+  principal editorial images.
+*/
+
+.hero-image,
+.editorial-image,
+.founder-photo,
+.featured-space img,
+.gallery-item img {
+  background: var(--ivory-200);
+}
+
+/*
+  Ensure framed images fill their architectural containers.
+*/
+
+.molding-frame .hero-image,
+.molding-frame .editorial-image,
+.molding-frame .founder-photo {
+  height: 100%;
+}
+
+/*
+  Maintain the preferred image compositions.
+*/
+
+.hero-image[
+  src="music-room-after-2048x1536.jpeg"
+] {
+  object-position: center 35%;
+}
+
+img[
+  src="three-ways-to-enhance-the-look-of-plain-crown-molding-1-music-room-ceiling-details-of-trim-used.jpeg"
+] {
+  object-position: center center;
+}
+
+/*
+  Visitors who prefer reduced motion see images immediately
+  without any fade or movement.
+*/
+
+@media (prefers-reduced-motion: reduce) {
+  .js img:not(.brand-icon):not(.footer-icon) {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
