@@ -2915,7 +2915,12 @@ img:not(.brand-icon):not(.footer-icon)
    MOBILE NAVIGATION
 ========================================================= */
 
-@media (max-width: 860px) {
+   @media (max-width: 860px) {
+  .site-header {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
   .nav-toggle {
     display: block;
 
@@ -2924,7 +2929,6 @@ img:not(.brand-icon):not(.footer-icon)
 
   .site-nav {
     position: fixed;
-
     top: var(--header-height);
     right: 0;
     bottom: 0;
